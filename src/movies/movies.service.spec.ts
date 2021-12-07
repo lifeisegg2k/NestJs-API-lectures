@@ -1,9 +1,16 @@
+// movies service
+
 import { ConsoleLogger, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MoviesService } from './movies.service';
 
 describe('MoviesService', () => {
   let service: MoviesService;
+  let testMovie = {
+    title: 'Test Movie',
+    year: 2001,
+    genres: ["action", "etc"]
+  }
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -26,11 +33,7 @@ describe('MoviesService', () => {
 
   describe('getOne', () => {
     it('should return a movie', () => {
-      service.create({
-        title: 'Test Movie',
-        year: 2001,
-        genres: ["action", "etc"]
-      });
+      service.create(testMovie);
       const movie = service.getOne(1)
       // console.log(typeof(movie));
       expect(movie).toBeDefined();
@@ -48,11 +51,7 @@ describe('MoviesService', () => {
 
   describe('deleteOne', () => {
     it('deletes a movie', () => {
-      service.create({
-        title: 'Test Movie',
-        year: 2001,
-        genres: ["action", "etc"]
-      });
+      service.create(testMovie);
       // console.log(service.getAll());
       const beforeDelete = service.getAll();
       service.deleteOne(1);
@@ -71,11 +70,7 @@ describe('MoviesService', () => {
   describe('cretae', () => {
     it('should create a movie', () => {
       const beforeCreate = service.getAll().length;
-      service.create({
-        title: 'Test Movie',
-        year: 2001,
-        genres: ["action", "etc"]
-      });
+      service.create(testMovie);
       const afterCreate = service.getAll().length;
       // console.log(service.getAll());
       expect(afterCreate).toBeGreaterThan(beforeCreate);
@@ -85,11 +80,7 @@ describe('MoviesService', () => {
 
   describe('update', () => {
     it('should update a movie', () => {
-      service.create({
-        title: 'Test Movie',
-        year: 2001,
-        genres: ["action", "etc"]
-      });
+      service.create(testMovie);
       service.update(1, { title: 'Update Test'});
       const movie = service.getOne(1);
       // console.log(service.getAll());

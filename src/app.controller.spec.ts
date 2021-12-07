@@ -16,8 +16,8 @@ describe('AppController', () => {
     expect(controller).toBeDefined();
   });
 
-  describe('home', () => {
-    it('should be return messgag', () => {
+  describe('/', () => {
+    it('should be return main message', () => {
       expect(controller.home()).toEqual('Welcom to my Movie API');
     });
   })
